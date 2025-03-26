@@ -1,0 +1,34 @@
+{
+    "name": "C# (.NET) and PostgreSQL",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csharp",
+                "ms-dotnettools.csdevkit",
+                "EditorConfig.EditorConfig",
+                "k--kato.docomment"
+            ],
+            "settings": {
+                // Loading projects on demand is better for larger codebases
+                "omnisharp.enableMsBuildLoadProjectsOnDemand": true,
+                "omnisharp.enableRoslynAnalyzers": true,
+                "omnisharp.enableEditorConfigSupport": true,
+                "omnisharp.enableImportCompletion": true
+            }
+        }
+    },
+    "onCreateCommand": "bash -i ${containerWorkspaceFolder}/.devcontainer/scripts/container-creation.sh",
+    // Add the locally installed dotnet to the path to ensure that it is activated
+    // This is needed so that things like the C# extension can resolve the correct SDK version
+    "remoteEnv": {
+        "PATH": "${containerWorkspaceFolder}/.dotnet:${containerEnv:PATH}",
+        "DOTNET_MULTILEVEL_LOOKUP": "0",
+        "TARGET": "net9.0",
+        "DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER": "true"
+    },
+    // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "vscode"
+}
