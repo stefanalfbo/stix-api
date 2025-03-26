@@ -1,0 +1,6 @@
+@StixApi_HostAddress = http://localhost:5252
+
+GET {{StixApi_HostAddress}}/vulnerabilities/
+Accept: application/json
+
+###
