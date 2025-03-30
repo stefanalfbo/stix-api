@@ -2,4 +2,9 @@
 
 FROM mcr.microsoft.com/devcontainers/dotnet:9.0
 
-RUN dotnet workload update
+RUN dotnet workload update && \
+     dotnet tool install --global dotnet-ef
+
+
+
+
