@@ -1,6 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using StixApi.Contracts.Persistance;
+using StixApi.Persistance;
+using StixApi.Persistance.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
+builder.Services.AddDbContextPool<StixDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("StixApiContext"))
+);
+builder.Services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IVulnerabilityRepository, VulnerabilityRepository>();
+
 
 builder.Services.AddControllers();
 
