@@ -9,7 +9,8 @@
                 "ms-dotnettools.csharp",
                 "ms-dotnettools.csdevkit",
                 "EditorConfig.EditorConfig",
-                "k--kato.docomment"
+                "k--kato.docomment",
+                "dbcode.dbcode"
             ],
             "settings": {
                 // Loading projects on demand is better for larger codebases
