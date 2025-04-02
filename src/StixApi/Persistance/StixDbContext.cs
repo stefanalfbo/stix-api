@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using StixApi.Domain.Entities;
+using StixApi.Persistance.Models;
 
 namespace StixApi.Persistance;
 
@@ -9,12 +9,11 @@ public class StixDbContext : DbContext
     {
     }
 
-    public DbSet<Vulnerability> Vulnerabilities { get; set; }
+    public DbSet<VulnerabilityDbModel> Vulnerabilities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Vulnerability>()
-            .ToTable("Vulnerability")
-            .Ignore(v => v.Extensions);
+        modelBuilder
+            .ApplyConfigurationsFromAssembly(typeof(StixDbContext).Assembly);
     }
 }

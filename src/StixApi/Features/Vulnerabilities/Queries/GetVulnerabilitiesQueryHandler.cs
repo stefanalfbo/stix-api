@@ -1,18 +1,18 @@
 using AutoMapper;
 using MediatR;
 using StixApi.Contracts.Persistance;
-using StixApi.Domain.Entities;
 using StixApi.Features.Vulnerabilities.Queries.Models;
+using StixApi.Persistance.Models;
 
 
 namespace StixApi.Features.Vulnerabilities.Queries;
 
 public class GetVulnerabilitiesQueryHandler : IRequestHandler<GetVulnerabilitiesQuery, List<VulnerabilityDTO>>
 {
-    private readonly IAsyncRepository<Vulnerability> _vulnerabilityRepository;
+    private readonly IAsyncRepository<VulnerabilityDbModel> _vulnerabilityRepository;
     private readonly IMapper _mapper;
 
-    public GetVulnerabilitiesQueryHandler(IMapper mapper, IAsyncRepository<Vulnerability> vulnerabilityRepository)
+    public GetVulnerabilitiesQueryHandler(IMapper mapper, IAsyncRepository<VulnerabilityDbModel> vulnerabilityRepository)
     {
         _vulnerabilityRepository = vulnerabilityRepository;
         _mapper = mapper;

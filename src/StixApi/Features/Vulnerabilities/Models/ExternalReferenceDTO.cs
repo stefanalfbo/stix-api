@@ -32,19 +32,19 @@ public class ExternalReferenceDTO
     [JsonPropertyName("hashes")]
     public Dictionary<string, string>? Hashes { get; set; }
 
-    public bool IsCve => SourceName.ToLower() == "cve" &&
-        ExternalId is not null &&
-        System.Text.RegularExpressions.Regex.IsMatch(ExternalId, @"^CVE-\d{4}-(0\d{3}|[1-9]\d{3,})$");
+    // public bool IsCve => SourceName.ToLower() == "cve" &&
+    //     ExternalId is not null &&
+    //     System.Text.RegularExpressions.Regex.IsMatch(ExternalId, @"^CVE-\d{4}-(0\d{3}|[1-9]\d{3,})$");
 
-    public bool IsCapec => SourceName.ToLower() == "capec" &&
-        ExternalId is not null &&
-        System.Text.RegularExpressions.Regex.IsMatch(ExternalId, @"^CAPEC-\d+$");
+    // public bool IsCapec => SourceName.ToLower() == "capec" &&
+    //     ExternalId is not null &&
+    //     System.Text.RegularExpressions.Regex.IsMatch(ExternalId, @"^CAPEC-\d+$");
 
-    public bool IsValid =>
-        (!string.IsNullOrEmpty(SourceName)) &&
-        (
-            (!string.IsNullOrEmpty(ExternalId)) ||
-            (!string.IsNullOrEmpty(Description)) ||
-            (!string.IsNullOrEmpty(Url))
-        );
+    // public bool IsValid =>
+    //     (!string.IsNullOrEmpty(SourceName)) &&
+    //     (
+    //         (!string.IsNullOrEmpty(ExternalId)) ||
+    //         (!string.IsNullOrEmpty(Description)) ||
+    //         (!string.IsNullOrEmpty(Url))
+    //     );
 }

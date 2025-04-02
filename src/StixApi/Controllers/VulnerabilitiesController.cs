@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using StixApi.Features.Vulnerabilities.Commands;
 using StixApi.Features.Vulnerabilities.Queries;
 using StixApi.Features.Vulnerabilities.Queries.Models;
 
@@ -31,44 +32,46 @@ public class VulnerabilitiesController : ControllerBase
 
     // GET: v1/api/vulnerabilities/{id} - This endpoint should retrieve a specific vulnerability by its ID.
     [HttpGet("{id}")]
-    public async Task<ActionResult<VulnerabilityDTO>> Get(int id)
+    public async Task<ActionResult<VulnerabilityDTO>> Get(string id)
     {
         _logger.LogInformation($"Retrieving vulnerability with ID: {id}.");
-        return Ok(new VulnerabilityDTO
-        {
-            SpecificationVersion = "2.1",
-            Id = "vulnerability--12345678-1234-5678-1234-567812345678",
-            Name = "Vulnerability Name",
-            Description = "Vulnerability Description",
-            Created = DateTime.UtcNow,
-            Modified = DateTime.UtcNow,
-        });
 
+        var vulnerability = await _mediator.Send(new GetVulnerabilityQuery { Id = id });
+        return Ok(vulnerability);
     }
 
     // POST: v1/api/vulnerabilities - This endpoint should create a new vulnerability using the STIX II
     // vulnerability model.
-    public async Task<ActionResult<int>> Post([FromBody] VulnerabilityDTO vulnerability)
+    [HttpPost]
+    public async Task<ActionResult<int>> Post([FromBody] CreateVulnerabilityCommand createVulnerabilityCommand)
     {
         _logger.LogInformation("Creating a new vulnerability.");
-        return Ok(1);
+        var id = await _mediator.Send(createVulnerabilityCommand);
+
+        return Ok(id);
     }
 
     // PUT: v1/api/vulnerabilities/{id} - This endpoint should update an existing vulnerability by its ID
     // using the STIX II vulnerability model.
     [HttpPut("{id}")]
-    public async Task<ActionResult> Put(int id, [FromBody] VulnerabilityDTO vulnerability)
+    public async Task<ActionResult> Put(string id, [FromBody] UpdateVulnerabilityCommand updateVulnerabilityCommand)
     {
         _logger.LogInformation($"Updating vulnerability with ID: {id}.");
+
+        await _mediator.Send(updateVulnerabilityCommand);
+
         return NoContent();
     }
 
     // DELETE: v1/api/vulnerabilities/{id} - This endpoint should delete an existing vulnerability by its
     // ID.
     [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    public async Task<ActionResult> Delete(string id)
     {
         _logger.LogInformation($"Deleting vulnerability with ID: {id}.");
+
+        await _mediator.Send(new DeleteVulnerabilityCommand { Id = id });
+
         return NoContent();
     }
 }
