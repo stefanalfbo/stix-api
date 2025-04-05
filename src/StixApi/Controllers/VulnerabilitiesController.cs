@@ -48,8 +48,14 @@ public class VulnerabilitiesController : ControllerBase
         return Ok(vulnerability);
     }
 
-    // POST: v1/api/vulnerabilities - This endpoint should create a new vulnerability using the STIX II
-    // vulnerability model.
+    /// <summary>
+    /// This endpoint should create a new vulnerability using the STIX II vulnerability model.
+    /// </summary>
+    /// <remarks>
+    /// A Vulnerability is a mistake in software that can be directly used by a hacker to gain access to a system or network.
+    /// </remarks>`
+    /// <param name="createVulnerabilityCommand"></param>
+    /// <returns>The id of the newly created vulnerability</returns>
     [HttpPost]
     public async Task<ActionResult<int>> Post([FromBody] CreateVulnerabilityCommand createVulnerabilityCommand)
     {
