@@ -14,3 +14,6 @@ https: ## Create a self-signed certificate for HTTPS
 
 run: ## Run the STIX API application
 	dotnet run --launch-profile https --project src/StixApi
+
+watch: ## Run the STIX API application with hot reload
+	dotnet watch run --launch-profile https --project src/StixApi
