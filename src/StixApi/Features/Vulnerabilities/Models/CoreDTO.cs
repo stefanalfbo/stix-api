@@ -10,6 +10,12 @@ namespace StixApi.Features.Vulnerabilities.Queries.Models;
 public class CoreDTO
 {
     /// <summary>
+    /// The type property identifies the type of STIX Object (SDO, Relationship Object, etc). The 
+    /// value of the type field MUST be one of the types defined by a STIX Object (e.g., indicator).
+    /// </summary>
+    [JsonPropertyName("type")]
+    public required string Type { get; set; }
+    /// <summary>
     /// The version of the STIX specification used to represent this object.
     /// </summary>
     [JsonPropertyName("spec_version")]
