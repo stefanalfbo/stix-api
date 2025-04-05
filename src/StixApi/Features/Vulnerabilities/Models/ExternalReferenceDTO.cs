@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace StixApi.Features.Vulnerabilities.Queries.Models;
+namespace StixApi.Features.Vulnerabilities.Models;
 
 /// <summary>
 /// External references are used to describe pointers to 
@@ -8,9 +8,15 @@ namespace StixApi.Features.Vulnerabilities.Queries.Models;
 /// </summary>
 public class ExternalReferenceDTO
 {
+    /// <summary>
+    /// The source within which the external-reference is defined (system, registry, organization, etc.)
+    /// </summary>
     [JsonPropertyName("source_name")]
-    public string SourceName { get; set; } = string.Empty;
+    public required string SourceName { get; set; }
 
+    /// <summary>
+    /// An identifier for the external reference content.
+    /// </summary>
     [JsonPropertyName("external_id")]
     public string? ExternalId { get; set; }
 
@@ -21,7 +27,7 @@ public class ExternalReferenceDTO
     public string? Description { get; set; }
 
     /// <summary>
-    /// A URL reference to an external resource.
+    /// A URL reference to an external resource [RFC3986].
     /// </summary>
     [JsonPropertyName("url")]
     public string? Url { get; set; }
@@ -31,20 +37,4 @@ public class ExternalReferenceDTO
     /// </summary>
     [JsonPropertyName("hashes")]
     public Dictionary<string, string>? Hashes { get; set; }
-
-    // public bool IsCve => SourceName.ToLower() == "cve" &&
-    //     ExternalId is not null &&
-    //     System.Text.RegularExpressions.Regex.IsMatch(ExternalId, @"^CVE-\d{4}-(0\d{3}|[1-9]\d{3,})$");
-
-    // public bool IsCapec => SourceName.ToLower() == "capec" &&
-    //     ExternalId is not null &&
-    //     System.Text.RegularExpressions.Regex.IsMatch(ExternalId, @"^CAPEC-\d+$");
-
-    // public bool IsValid =>
-    //     (!string.IsNullOrEmpty(SourceName)) &&
-    //     (
-    //         (!string.IsNullOrEmpty(ExternalId)) ||
-    //         (!string.IsNullOrEmpty(Description)) ||
-    //         (!string.IsNullOrEmpty(Url))
-    //     );
 }

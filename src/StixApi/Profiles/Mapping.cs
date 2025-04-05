@@ -1,5 +1,5 @@
 using AutoMapper;
-using StixApi.Features.Vulnerabilities.Queries.Models;
+using StixApi.Features.Vulnerabilities.Models;
 using StixApi.Domain.Entities;
 using StixApi.Features.Vulnerabilities.Commands;
 using StixApi.Persistance.Models;

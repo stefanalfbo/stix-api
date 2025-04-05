@@ -1,8 +1,6 @@
-
-
 using System.Text.Json.Serialization;
 
-namespace StixApi.Features.Vulnerabilities.Queries.Models;
+namespace StixApi.Features.Vulnerabilities.Models;
 
 /// <summary>
 /// Common properties and behavior across all STIX Domain Objects and STIX Relationship Objects.

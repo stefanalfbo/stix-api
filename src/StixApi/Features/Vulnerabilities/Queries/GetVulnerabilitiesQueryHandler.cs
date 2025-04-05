@@ -1,7 +1,7 @@
 using AutoMapper;
 using MediatR;
 using StixApi.Contracts.Persistance;
-using StixApi.Features.Vulnerabilities.Queries.Models;
+using StixApi.Features.Vulnerabilities.Models;
 using StixApi.Persistance.Models;
 
 

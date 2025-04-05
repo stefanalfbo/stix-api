@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using StixApi.Features.Vulnerabilities.Commands;
 using StixApi.Features.Vulnerabilities.Queries;
-using StixApi.Features.Vulnerabilities.Queries.Models;
+using StixApi.Features.Vulnerabilities.Models;
 
 namespace StixApi.Controllers;
 
