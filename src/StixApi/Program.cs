@@ -1,4 +1,6 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using StixApi.Contracts.Persistance;
 using StixApi.Persistance;
 using StixApi.Persistance.Repositories;
@@ -19,7 +21,24 @@ builder.Services.AddScoped<IVulnerabilityRepository, VulnerabilityRepository>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.EnableAnnotations();
+    options.SwaggerDoc(
+        "v1",
+        new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "STIX API",
+            Description = "An API for managing STIX data",
+        }
+    );
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
+
+
 
 var app = builder.Build();
 

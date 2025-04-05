@@ -7,7 +7,8 @@ using StixApi.Features.Vulnerabilities.Queries.Models;
 namespace StixApi.Controllers;
 
 [ApiController]
-[Route("v1/api/[controller]")]
+[Route("v1/api/vulnerabilities")]
+[Produces("application/json")]
 public class VulnerabilitiesController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -19,8 +20,15 @@ public class VulnerabilitiesController : ControllerBase
         _logger = logger;
     }
 
-    // GET: v1/api/vulnerabilities - This endpoint retrieves a list of all vulnerabilities in the
-    // system.
+    /// <summary>
+    /// This endpoint retrieves a list of all vulnerabilities in the system.
+    /// </summary>
+    /// <returns>A list of all vulnerabilities</returns>
+    /// <remarks>
+    /// A Vulnerability is a mistake in software that can be directly used by a hacker to gain access to a system or network.
+    /// </remarks>
+    /// <response code="200">Returns a list of vulnerabilities</response>
+    /// <response code="500">If there is an internal server error</response>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<VulnerabilityDTO>>> Get()
     {
