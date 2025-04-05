@@ -17,3 +17,6 @@ run: ## Run the STIX API application
 
 watch: ## Run the STIX API application with hot reload
 	dotnet watch run --launch-profile https --project src/StixApi
+
+test: ## Run the STIX API tests
+	dotnet test --no-restore --verbosity normal
