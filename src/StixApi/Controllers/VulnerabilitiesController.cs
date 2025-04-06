@@ -4,6 +4,7 @@ using StixApi.Features.Vulnerabilities.Commands;
 using StixApi.Features.Vulnerabilities.Queries;
 using StixApi.Features.Vulnerabilities.Models;
 using StixApi.Features.Vulnerabilities.Commands.Create;
+using StixApi.Features.Vulnerabilities.Queries.List;
 
 namespace StixApi.Controllers;
 
@@ -31,7 +32,7 @@ public class VulnerabilitiesController : ControllerBase
     /// <response code="200">Returns a list of vulnerabilities</response>
     /// <response code="500">If there is an internal server error</response>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<VulnerabilityDTO>>> Get()
+    public async Task<ActionResult<IEnumerable<VulnerabilityListDTO>>> Get()
     {
         _logger.LogInformation("Retrieving all vulnerabilities.");
 

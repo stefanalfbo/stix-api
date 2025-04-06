@@ -5,6 +5,7 @@ using StixApi.Features.Vulnerabilities.Commands;
 using StixApi.Persistance.Models;
 using System.Text.Json;
 using StixApi.Features.Vulnerabilities.Commands.Create;
+using StixApi.Features.Vulnerabilities.Queries.List;
 
 namespace StixApi.Profiles;
 
@@ -16,7 +17,11 @@ public class MappingProfile : Profile
         CreateMap<VulnerabilityDbModel, VulnerabilityDTO>()
             .ConvertUsing<VulnerabilityDbModelToDtoConverter>();
 
-        CreateMap<CreateVulnerabilityCommand, VulnerabilityDbModel>().ConvertUsing<CreateVulnerabilityCommandToVulnerabilityDbModelConverter>();
+        CreateMap<VulnerabilityDbModel, VulnerabilityListDTO>()
+            .ConvertUsing<VulnerabilityDbModelToVulnerabilityListDTOConverter>();
+        CreateMap<CreateVulnerabilityCommand, VulnerabilityDbModel>()
+            .ConvertUsing<CreateVulnerabilityCommandToVulnerabilityDbModelConverter>();
+
         CreateMap<UpdateVulnerabilityCommand, VulnerabilityDbModel>()
             .ConvertUsing<UpdateVulnerabilityCommandToVulnerabilityDbModelConverter>();
     }
@@ -27,6 +32,16 @@ public class VulnerabilityDbModelToDtoConverter : ITypeConverter<VulnerabilityDb
     public VulnerabilityDTO Convert(VulnerabilityDbModel source, VulnerabilityDTO destination, ResolutionContext context)
     {
         var dto = source.Value.Deserialize<VulnerabilityDTO>() ?? throw new JsonException("Failed to deserialize VulnerabilityDTO from JSON.");
+
+        return dto;
+    }
+}
+
+public class VulnerabilityDbModelToVulnerabilityListDTOConverter : ITypeConverter<VulnerabilityDbModel, VulnerabilityListDTO>
+{
+    public VulnerabilityListDTO Convert(VulnerabilityDbModel source, VulnerabilityListDTO destination, ResolutionContext context)
+    {
+        var dto = source.Value.Deserialize<VulnerabilityListDTO>() ?? throw new JsonException("Failed to deserialize VulnerabilityListDTO from JSON.");
 
         return dto;
     }
