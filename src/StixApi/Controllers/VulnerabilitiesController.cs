@@ -5,6 +5,7 @@ using StixApi.Features.Vulnerabilities.Queries;
 using StixApi.Features.Vulnerabilities.Models;
 using StixApi.Features.Vulnerabilities.Commands.Create;
 using StixApi.Features.Vulnerabilities.Queries.List;
+using StixApi.Features.Vulnerabilities.Queries.Get;
 
 namespace StixApi.Controllers;
 
@@ -40,9 +41,19 @@ public class VulnerabilitiesController : ControllerBase
         return Ok(vulnerabilities);
     }
 
-    // GET: v1/api/vulnerabilities/{id} - This endpoint should retrieve a specific vulnerability by its ID.
+    /// <summary>
+    /// This endpoint retrieves a specific vulnerability by its ID.
+    /// </summary>
+    /// <param name="id">The ID of the vulnerability to retrieve</param>
+    /// <returns>The details of the specified vulnerability</returns>
+    /// <remarks>
+    /// A Vulnerability is a mistake in software that can be directly used by a hacker to gain access to a system or network.
+    /// </remarks>
+    /// <response code="200">Returns the details of the specified vulnerability</response>
+    /// <response code="404">If the vulnerability is not found</response>
+    /// <response code="500">If there is an internal server error</response>
     [HttpGet("{id}")]
-    public async Task<ActionResult<VulnerabilityDTO>> Get(string id)
+    public async Task<ActionResult<VulnerabilityDetailDTO>> Get(string id)
     {
         _logger.LogInformation($"Retrieving vulnerability with ID: {id}.");
 
