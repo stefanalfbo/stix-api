@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StixApi.Features.Vulnerabilities.Commands;
 using StixApi.Features.Vulnerabilities.Queries;
 using StixApi.Features.Vulnerabilities.Models;
+using StixApi.Features.Vulnerabilities.Commands.Create;
 
 namespace StixApi.Controllers;
 

@@ -4,6 +4,7 @@ using StixApi.Domain.Entities;
 using StixApi.Features.Vulnerabilities.Commands;
 using StixApi.Persistance.Models;
 using System.Text.Json;
+using StixApi.Features.Vulnerabilities.Commands.Create;
 
 namespace StixApi.Profiles;
 
