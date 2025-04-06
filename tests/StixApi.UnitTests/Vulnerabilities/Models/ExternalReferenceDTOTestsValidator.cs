@@ -1,8 +1,5 @@
 using AutoMapper;
-using NSubstitute;
-using StixApi.Persistance.Models;
 using StixApi.Features.Vulnerabilities.Models;
-using StixApi.Contracts.Persistance;
 using StixApi.Profiles;
 using Shouldly;
 
