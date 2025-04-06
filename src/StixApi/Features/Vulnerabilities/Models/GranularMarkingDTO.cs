@@ -1,4 +1,3 @@
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace StixApi.Features.Vulnerabilities.Models;
@@ -14,7 +13,7 @@ public class GranularMarkingDTO
     /// A list of selectors for content contained within the STIX object in which this property appears.
     /// </summary>
     [JsonPropertyName("selectors")]
-    public required ICollection<string> Selectors { get; set; }
+    public required List<string> Selectors { get; set; }
 
     /// <summary>
     /// Identifies the language of the text identified by this marking.

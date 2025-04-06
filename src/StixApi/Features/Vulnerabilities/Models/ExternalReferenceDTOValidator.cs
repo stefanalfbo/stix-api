@@ -14,8 +14,7 @@ public class ExternalReferenceDTOValidator : AbstractValidator<ExternalReference
     public ExternalReferenceDTOValidator()
     {
         RuleFor(x => x.SourceName)
-            .NotEmpty().WithMessage("source_name is required")
-            .Must(x => x == "cve" || x == "capec").WithMessage("source_name must be either 'cve' or 'capec'");
+            .NotEmpty().WithMessage("source_name is required");
 
         // If source_name is 'cve'
         When(x => CvePattern.IsMatch(x.SourceName ?? ""), () =>
@@ -35,13 +34,23 @@ public class ExternalReferenceDTOValidator : AbstractValidator<ExternalReference
                 .When(x => x.ExternalId != null);
         });
 
+        // If source_name is not 'cve' or 'capec'
+        When(x => !CvePattern.IsMatch(x.SourceName ?? "") && !CapecPattern.IsMatch(x.SourceName ?? ""), () =>
+        {
+            RuleFor(x => x).Must(x =>
+                                x.ExternalId != null
+                                || x.Description != null
+                                || x.Url != null)
+                .WithMessage("Must supply at least one of: external_id, description, or url");
 
-        RuleFor(x => x).Must(x =>
-            x.ExternalId != null
-            || x.Description != null
-            || x.Url != null)
-            .WithMessage("Must supply at least one of: external_id, description, or url");
-        ;
+            RuleFor(x => x.ExternalId)
+                .Matches(@"^((CVE-\\d{4}-(0\\d{3}|[1-9]\\d{3,}))|(CAPEC-\\d+))$").WithMessage("external_id must match the CVE or CAPEC pattern (e.g. CVE-2025-0042 or CAPEC-1234)")
+                .When(x => x.ExternalId != null);
+        });
+
+
+
+
 
         RuleForEach(x => x.Hashes)
             .ChildRules(dict =>

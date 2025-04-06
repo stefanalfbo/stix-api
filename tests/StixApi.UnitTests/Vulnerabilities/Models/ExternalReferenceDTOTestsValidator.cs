@@ -1,14 +1,10 @@
-using AutoMapper;
 using StixApi.Features.Vulnerabilities.Models;
-using StixApi.Profiles;
 using Shouldly;
 
 namespace StixApi.UnitTests.Vulnerabilities.Models;
 
 public class ExternalReferenceDTOTests
 {
-    private readonly IMapper _mapper;
-
     private readonly ExternalReferenceDTO externalReference = new()
     {
         SourceName = "cve",
@@ -20,17 +16,6 @@ public class ExternalReferenceDTOTests
             { "SHA-256", "abcdef1234567890" }
         }
     };
-
-    public ExternalReferenceDTOTests()
-    {
-        var configurationProvider = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<MappingProfile>();
-            });
-
-        _mapper = configurationProvider.CreateMapper();
-    }
-
 
     [Fact]
     public async Task Valid_External_Reference()
@@ -180,7 +165,7 @@ public class ExternalReferenceDTOTests
         var validator = new ExternalReferenceDTOValidator();
         var externalReference = new ExternalReferenceDTO()
         {
-            SourceName = "capec",
+            SourceName = "source name",
         };
 
         // Act
