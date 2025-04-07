@@ -1,0 +1,5 @@
+{
+    "ConnectionStrings": {
+        "StixApiContext": "Server=db;Port=5432;Database=integrationtest;User Id=postgres;Password=postgres;"
+    }
+}

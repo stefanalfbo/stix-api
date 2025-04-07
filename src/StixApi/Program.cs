@@ -55,4 +55,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
+
+// This partial class is used for integration testing purposes.
+public partial class Program { }
