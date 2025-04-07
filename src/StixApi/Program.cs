@@ -4,6 +4,8 @@ using Microsoft.OpenApi.Models;
 using StixApi.Contracts.Persistance;
 using StixApi.Persistance;
 using StixApi.Persistance.Repositories;
+using StixApi.Middleware;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,8 +40,6 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,6 +48,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandlerMiddleware();
 
 app.UseHttpsRedirection();
 
