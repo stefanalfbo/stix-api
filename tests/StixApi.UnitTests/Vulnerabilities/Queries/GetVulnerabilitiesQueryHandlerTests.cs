@@ -2,7 +2,7 @@ using AutoMapper;
 using NSubstitute;
 using Shouldly;
 using StixApi.Contracts.Persistance;
-using StixApi.Features.Vulnerabilities.Queries.List;
+using StixApi.Features.Vulnerabilities.Queries.List.V1;
 using StixApi.Persistance.Models;
 using StixApi.Profiles;
 
@@ -46,10 +46,10 @@ public class GetVulnerabilitiesQueryHandlerTests
             }")
         };
         repositoryMock.ListAllAsync().Returns(new List<VulnerabilityDbModel> { vulnerability });
-        var handler = new GetVulnerabilitiesQueryHandler(_mapper, repositoryMock);
+        var handler = new ListVulnerabilitiesQueryHandler(_mapper, repositoryMock);
 
         // Act
-        var result = await handler.Handle(new GetVulnerabilitiesQuery(), CancellationToken.None);
+        var result = await handler.Handle(new ListVulnerabilitiesQuery(), CancellationToken.None);
 
         // Assert
         result.ShouldBeOfType<List<VulnerabilityListDTO>>();

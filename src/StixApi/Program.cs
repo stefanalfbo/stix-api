@@ -22,7 +22,7 @@ builder.Services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>))
 builder.Services.AddScoped<IVulnerabilityRepository, VulnerabilityRepository>();
 
 
-builder.Services.AddControllers();
+builder.Services.AddFeatureControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

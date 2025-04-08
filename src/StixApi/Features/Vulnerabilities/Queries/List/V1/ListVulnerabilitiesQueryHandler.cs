@@ -4,20 +4,20 @@ using StixApi.Contracts.Persistance;
 using StixApi.Persistance.Models;
 
 
-namespace StixApi.Features.Vulnerabilities.Queries.List;
+namespace StixApi.Features.Vulnerabilities.Queries.List.V1;
 
-public class GetVulnerabilitiesQueryHandler : IRequestHandler<GetVulnerabilitiesQuery, List<VulnerabilityListDTO>>
+public class ListVulnerabilitiesQueryHandler : IRequestHandler<ListVulnerabilitiesQuery, List<VulnerabilityListDTO>>
 {
     private readonly IAsyncRepository<VulnerabilityDbModel> _vulnerabilityRepository;
     private readonly IMapper _mapper;
 
-    public GetVulnerabilitiesQueryHandler(IMapper mapper, IAsyncRepository<VulnerabilityDbModel> vulnerabilityRepository)
+    public ListVulnerabilitiesQueryHandler(IMapper mapper, IAsyncRepository<VulnerabilityDbModel> vulnerabilityRepository)
     {
         _vulnerabilityRepository = vulnerabilityRepository;
         _mapper = mapper;
     }
 
-    public async Task<List<VulnerabilityListDTO>> Handle(GetVulnerabilitiesQuery request, CancellationToken cancellationToken)
+    public async Task<List<VulnerabilityListDTO>> Handle(ListVulnerabilitiesQuery request, CancellationToken cancellationToken)
     {
         var vulnerabilities = await _vulnerabilityRepository.ListAllAsync();
 
