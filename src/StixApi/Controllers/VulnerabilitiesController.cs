@@ -1,11 +1,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using StixApi.Features.Vulnerabilities.Commands;
-using StixApi.Features.Vulnerabilities.Queries;
-using StixApi.Features.Vulnerabilities.Models;
 using StixApi.Features.Vulnerabilities.Commands.Create;
 using StixApi.Features.Vulnerabilities.Queries.List;
 using StixApi.Features.Vulnerabilities.Queries.Get;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StixApi.Controllers;
 
@@ -80,6 +79,7 @@ public class VulnerabilitiesController : ControllerBase
 
     // PUT: v1/api/vulnerabilities/{id} - This endpoint should update an existing vulnerability by its ID
     // using the STIX II vulnerability model.
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(string id, [FromBody] UpdateVulnerabilityCommand updateVulnerabilityCommand)
     {
