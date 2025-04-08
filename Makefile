@@ -20,3 +20,7 @@ watch: ## Run the STIX API application with hot reload
 
 test: ## Run the STIX API tests
 	dotnet test --no-restore --verbosity normal
+
+migrate: ## Run the database migrations
+	dotnet ef database update --project src/StixApi
+	@echo "Database migrations completed."
