@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StixApi.Features.Vulnerabilities.Queries.List.V1;
 
@@ -27,6 +28,7 @@ public class ListVulnerabilitiesController : ControllerBase
     /// <response code="200">Returns a list of vulnerabilities</response>
     /// <response code="500">If there is an internal server error</response>
     [HttpGet]
+    [SwaggerOperation(Tags = new[] { "vulnerabilities" })]
     public async Task<ActionResult<IEnumerable<VulnerabilityListDTO>>> List()
     {
         _logger.LogInformation("Retrieving all vulnerabilities.");

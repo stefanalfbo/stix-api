@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StixApi.Features.Vulnerabilities.Queries.Get.V1;
 
@@ -29,6 +30,7 @@ public class GetVulnerabilitiesController : ControllerBase
     /// <response code="404">If the vulnerability is not found</response>
     /// <response code="500">If there is an internal server error</response>
     [HttpGet("{id}")]
+    [SwaggerOperation(Tags = new[] { "vulnerabilities" })]
     public async Task<ActionResult<VulnerabilityDetailDTO>> Get(string id)
     {
         _logger.LogInformation($"Retrieving vulnerability with ID: {id}.");
