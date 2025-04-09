@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace StixApi.Features.Vulnerabilities.Models;
+namespace StixApi.Features.Vulnerabilities.Commands.Create.V1;
 
 /// <summary>
 /// The granular-marking type defines how the list of marking-definition objects referenced by 

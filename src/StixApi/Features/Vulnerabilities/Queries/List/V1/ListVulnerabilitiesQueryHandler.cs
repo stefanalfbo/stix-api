@@ -1,7 +1,8 @@
-using AutoMapper;
 using MediatR;
 using StixApi.Contracts.Persistance;
+using StixApi.Domain.Entities;
 using StixApi.Persistance.Models;
+using System.Text.Json;
 
 
 namespace StixApi.Features.Vulnerabilities.Queries.List.V1;
@@ -9,18 +10,34 @@ namespace StixApi.Features.Vulnerabilities.Queries.List.V1;
 public class ListVulnerabilitiesQueryHandler : IRequestHandler<ListVulnerabilitiesQuery, List<VulnerabilityListDTO>>
 {
     private readonly IAsyncRepository<VulnerabilityDbModel> _vulnerabilityRepository;
-    private readonly IMapper _mapper;
 
-    public ListVulnerabilitiesQueryHandler(IMapper mapper, IAsyncRepository<VulnerabilityDbModel> vulnerabilityRepository)
+
+    public ListVulnerabilitiesQueryHandler(IAsyncRepository<VulnerabilityDbModel> vulnerabilityRepository)
     {
         _vulnerabilityRepository = vulnerabilityRepository;
-        _mapper = mapper;
     }
 
     public async Task<List<VulnerabilityListDTO>> Handle(ListVulnerabilitiesQuery request, CancellationToken cancellationToken)
     {
         var vulnerabilities = await _vulnerabilityRepository.ListAllAsync();
 
-        return _mapper.Map<List<VulnerabilityListDTO>>(vulnerabilities);
+        var vulnerabilityList = new List<VulnerabilityListDTO>();
+        foreach (var v in vulnerabilities)
+        {
+            var vulnerability = v.Value.Deserialize<Vulnerability>() ?? throw new JsonException("Failed to deserialize Vulnerability from JSON.");
+
+            var vulnerabilityListDTO = new VulnerabilityListDTO
+            {
+                Id = vulnerability.Id,
+                Name = vulnerability.Name,
+                Created = vulnerability.Created.ToString("o"),
+                Description = vulnerability.Description,
+                Confidence = vulnerability.Confidence,
+            };
+
+            vulnerabilityList.Add(vulnerabilityListDTO);
+        }
+
+        return vulnerabilityList;
     }
 }

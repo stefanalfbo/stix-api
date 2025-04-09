@@ -1,7 +1,7 @@
-using StixApi.Features.Vulnerabilities.Models;
 using Shouldly;
+using StixApi.Features.Vulnerabilities.Commands.Create.V1;
 
-namespace StixApi.UnitTests.Vulnerabilities.Models;
+namespace StixApi.UnitTests.Vulnerabilities.Commands;
 
 public class GranularMarkingDTOTests
 {

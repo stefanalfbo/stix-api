@@ -1,7 +1,7 @@
 using FluentValidation;
 using System.Text.RegularExpressions;
 
-namespace StixApi.Features.Vulnerabilities.Models;
+namespace StixApi.Features.Vulnerabilities.Commands.Create.V1;
 
 public class ExternalReferenceDTOValidator : AbstractValidator<ExternalReferenceDTO>
 {
@@ -47,10 +47,6 @@ public class ExternalReferenceDTOValidator : AbstractValidator<ExternalReference
                 .Matches(@"^((CVE-\\d{4}-(0\\d{3}|[1-9]\\d{3,}))|(CAPEC-\\d+))$").WithMessage("external_id must match the CVE or CAPEC pattern (e.g. CVE-2025-0042 or CAPEC-1234)")
                 .When(x => x.ExternalId != null);
         });
-
-
-
-
 
         RuleForEach(x => x.Hashes)
             .ChildRules(dict =>

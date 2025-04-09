@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace StixApi.Features.Vulnerabilities.Models;
+namespace StixApi.Features.Vulnerabilities.Commands.Create.V1;
 
 public class GranularMarkingDTOValidator : AbstractValidator<GranularMarkingDTO>
 {

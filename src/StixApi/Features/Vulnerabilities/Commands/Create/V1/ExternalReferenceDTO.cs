@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace StixApi.Features.Vulnerabilities.Models;
+namespace StixApi.Features.Vulnerabilities.Commands.Create.V1;
 
 /// <summary>
 /// External references are used to describe pointers to 

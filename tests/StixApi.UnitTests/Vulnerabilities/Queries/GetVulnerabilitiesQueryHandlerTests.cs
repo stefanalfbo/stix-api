@@ -1,28 +1,13 @@
-using AutoMapper;
 using NSubstitute;
 using Shouldly;
 using StixApi.Contracts.Persistance;
 using StixApi.Features.Vulnerabilities.Queries.List.V1;
 using StixApi.Persistance.Models;
-using StixApi.Profiles;
 
 namespace StixApi.UnitTests.Vulnerabilities.Queries;
 
 public class GetVulnerabilitiesQueryHandlerTests
 {
-    private readonly IMapper _mapper;
-
-
-    public GetVulnerabilitiesQueryHandlerTests()
-    {
-        var configurationProvider = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<MappingProfile>();
-        });
-
-        _mapper = configurationProvider.CreateMapper();
-    }
-
     [Fact]
     public async Task GetVulnerabilitiesTest()
     {
@@ -46,7 +31,7 @@ public class GetVulnerabilitiesQueryHandlerTests
             }")
         };
         repositoryMock.ListAllAsync().Returns(new List<VulnerabilityDbModel> { vulnerability });
-        var handler = new ListVulnerabilitiesQueryHandler(_mapper, repositoryMock);
+        var handler = new ListVulnerabilitiesQueryHandler(repositoryMock);
 
         // Act
         var result = await handler.Handle(new ListVulnerabilitiesQuery(), CancellationToken.None);

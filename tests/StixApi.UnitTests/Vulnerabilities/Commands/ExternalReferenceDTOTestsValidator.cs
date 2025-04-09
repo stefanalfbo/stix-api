@@ -1,7 +1,7 @@
-using StixApi.Features.Vulnerabilities.Models;
+using StixApi.Features.Vulnerabilities.Commands.Create.V1;
 using Shouldly;
 
-namespace StixApi.UnitTests.Vulnerabilities.Models;
+namespace StixApi.UnitTests.Vulnerabilities.Commands;
 
 public class ExternalReferenceDTOTests
 {
