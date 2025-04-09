@@ -47,6 +47,10 @@ public class ExceptionHandlerMiddleware
                 httpStatusCode = HttpStatusCode.BadRequest;
                 result = JsonSerializer.Serialize(validationException.ValdationErrors);
                 break;
+            case NotFoundException notFoundException:
+                httpStatusCode = HttpStatusCode.NotFound;
+                result = JsonSerializer.Serialize(new { error = notFoundException.Message });
+                break;
             case Exception:
                 httpStatusCode = HttpStatusCode.BadRequest;
                 break;
