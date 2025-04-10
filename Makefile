@@ -24,3 +24,9 @@ test: ## Run the STIX API tests
 migrate: ## Run the database migrations
 	dotnet ef database update --project src/StixApi
 	@echo "Database migrations completed."
+
+create-jwt: ## Create a new JWT token
+	dotnet user-jwts create --project src/StixApi --issuer "iss" --audience "aud" 
+
+create-jwt-admin: ## Create a new JWT token with role admin
+	dotnet user-jwts create --project src/StixApi --issuer "iss" --audience "aud" --role "admin"

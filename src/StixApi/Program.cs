@@ -10,7 +10,7 @@ using StixApi.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddJWTAuthentication(builder.Configuration);
+builder.Services.AddJWTAuthentication();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 

@@ -25,8 +25,16 @@ Use the Makefile to build and run the application, just run the `make` in the te
 
 ### Create STIX2 Vulnerability object
 
+Token can be generated using the following command:
+
 ```bash
-curl -k -X POST \
+make create-jwt
+```
+
+Then use the token in the following command:
+
+```bash
+curl -k -H "Authorization: Bearer {token}" -X POST \
   https://localhost:7195/v1/api/vulnerabilities \
   -H 'Content-Type: application/json' \
   -d @./docs/schemas/sdos/examples/vulnerability.json 
@@ -50,17 +58,32 @@ curl -k -X GET \
 
 ### Delete STIX2 Vulnerability object
 
+Token can be generated using the following command:
+
 ```bash
-curl -k -X DELETE \
+make create-jwt-admin
+```
+
+Then use the token in the following command:
+
+```bash
+curl -k -H "Authorization: Bearer {token}" -X DELETE \
   https://localhost:7195/v1/api/vulnerabilities/vulnerability--e9eb06c9-ebc1-47a6-a009-4702bd9f744a \
   -H 'Content-Type: application/json'
 ```
 
 ### Update STIX2 Vulnerability object
 
+Token can be generated using the following command:
+
 ```bash
-curl -k -X PUT \
+make create-jwt
+```
+
+Then use the token in the following command:
+
+```bash
+curl -k -H "Authorization: Bearer {token}" -X PUT \
   https://localhost:7195/v1/api/vulnerabilities/vulnerability--e9eb06c9-ebc1-47a6-a009-4702bd9f744a \
   -H 'Content-Type: application/json' \
   -d @./docs/schemas/sdos/examples/update_vulnerability.json 
-```
