@@ -20,29 +20,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         // options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
     });
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("read:vuln", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "read:vuln");
-    });
-    options.AddPolicy("create:vuln", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "create:vuln");
-    });
-    options.AddPolicy("update:vuln", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "update:vuln");
-    });
-    options.AddPolicy("delete:vuln", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "delete:vuln");
-    });
-});
+builder.Services.AddScopeAuthorization();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 

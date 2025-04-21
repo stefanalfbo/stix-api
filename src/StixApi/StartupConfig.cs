@@ -5,11 +5,33 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 
 public static class StartupConfig
 {
-    public static void AddJWTAuthentication(this IServiceCollection services)
+    public static void AddScopeAuthorization(this IServiceCollection services)
     {
-        services.AddAuthorization();
-        services.AddAuthentication("Bearer").AddJwtBearer();
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("read:vuln", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireClaim("scope", "read:vuln");
+            });
+            options.AddPolicy("create:vuln", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireClaim("scope", "create:vuln");
+            });
+            options.AddPolicy("update:vuln", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireClaim("scope", "update:vuln");
+            });
+            options.AddPolicy("delete:vuln", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireClaim("scope", "delete:vuln");
+            });
+        });
     }
+
 
     public static void AddFeatureControllers(this IServiceCollection services)
     {
