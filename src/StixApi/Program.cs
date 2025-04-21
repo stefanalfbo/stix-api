@@ -5,12 +5,26 @@ using StixApi.Contracts.Persistance;
 using StixApi.Persistance;
 using StixApi.Persistance.Repositories;
 using StixApi.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddJWTAuthentication();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://localhost:5001";
+        options.TokenValidationParameters.ValidateAudience = false;
+        // options.Audience = "stixapi";
+
+        // options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+    });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiScope", policy => policy.RequireAuthenticatedUser()
+        .RequireClaim("scope", "stixapi"));
+});
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
