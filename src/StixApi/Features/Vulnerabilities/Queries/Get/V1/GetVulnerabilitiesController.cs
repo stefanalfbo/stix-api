@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -31,6 +32,7 @@ public class GetVulnerabilitiesController : ControllerBase
     /// <response code="500">If there is an internal server error</response>
     [HttpGet("{id}")]
     [SwaggerOperation(Tags = new[] { "vulnerabilities" })]
+    [Authorize(Policy = "read:vuln")]
     public async Task<ActionResult<VulnerabilityDetailDTO>> Get(string id)
     {
         _logger.LogInformation($"Retrieving vulnerability with ID: {id}.");

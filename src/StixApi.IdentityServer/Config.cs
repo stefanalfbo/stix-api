@@ -13,7 +13,10 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
             {
-                new ApiScope(name: "stixapi", displayName: "StixApi")
+                new ApiScope(name: "create:vuln", displayName: "create:vuln"),
+                new ApiScope(name: "read:vuln", displayName: "read:vuln"),
+                new ApiScope(name: "update:vuln", displayName: "update:vuln"),
+                new ApiScope(name: "delete:vuln", displayName: "delete:vuln"),
             };
 
     public static IEnumerable<Client> Clients =>
@@ -22,7 +25,7 @@ public static class Config
     {
         new Client
         {
-            ClientId = "client",
+            ClientId = "admin",
 
             // no interactive user, use the clientid/secret for authentication
             AllowedGrantTypes = GrantTypes.ClientCredentials,
@@ -30,10 +33,10 @@ public static class Config
             // secret for authentication
             ClientSecrets =
             {
-                new Secret("secret".Sha256())
+                new Secret("admin-password".Sha256())
             },
 
-            AllowedScopes = { "stixapi" }
+            AllowedScopes = { "read:vuln", "create:vuln", "update:vuln", "delete:vuln" },
         }
     };
 }

@@ -30,7 +30,7 @@ public class ListVulnerabilitiesController : ControllerBase
     /// <response code="500">If there is an internal server error</response>
     [HttpGet]
     [SwaggerOperation(Tags = new[] { "vulnerabilities" })]
-    [Authorize("ApiScope")]
+    [Authorize(Policy = "read:vuln")]
     public async Task<ActionResult<IEnumerable<VulnerabilityListDTO>>> List()
     {
         _logger.LogInformation("Retrieving all vulnerabilities.");

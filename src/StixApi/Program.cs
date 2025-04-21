@@ -22,8 +22,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("ApiScope", policy => policy.RequireAuthenticatedUser()
-        .RequireClaim("scope", "stixapi"));
+    options.AddPolicy("read:vuln", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "read:vuln");
+    });
+    options.AddPolicy("create:vuln", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "create:vuln");
+    });
+    options.AddPolicy("update:vuln", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "update:vuln");
+    });
+    options.AddPolicy("delete:vuln", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "delete:vuln");
+    });
 });
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
