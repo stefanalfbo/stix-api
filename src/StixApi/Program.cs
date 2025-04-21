@@ -16,9 +16,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.Authority = "https://localhost:5001";
         options.TokenValidationParameters.ValidateAudience = false;
-        // options.Audience = "stixapi";
-
-        // options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
     });
 builder.Services.AddScopeAuthorization();
 
