@@ -12,8 +12,14 @@ https: ## Create a self-signed certificate for HTTPS
 	dotnet dev-certs https -ep aspnetapp.pfx -p password
 	dotnet dev-certs https --trust
 
-run: ## Run the STIX API application
+run-api: ## Run the STIX API application
 	dotnet run --launch-profile https --project src/StixApi
+
+run-idp: ## Run the Identity Server
+	dotnet run --project src/StixApi.IdentityServer
+
+run-client: ## Run the test client
+	dotnet run --project src/StixApi.Client
 
 watch: ## Run the STIX API application with hot reload
 	dotnet watch run --launch-profile https --project src/StixApi
